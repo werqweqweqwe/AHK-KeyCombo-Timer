@@ -1,81 +1,66 @@
 ; =========================
-; AHK KEY COMBO TIMER - FUTURISTIC DESIGN
+; COSMIC KEY TIMER - FUTURISTIC HACKER STYLE
+; AutoHotkey v1.1 compatible
 ; =========================
 
-Gui, Color, 0A0E27
-Gui, Font, s11 cFFFFFF, Segoe UI
+; ---------- БАЗОВЫЕ НАСТРОЙКИ ----------
+#NoEnv
+#SingleInstance Force
+SetBatchLines, -1
+CoordMode, Mouse, Screen
 
-; Заголовок с иконкой
-Gui, Add, Text, x20 y20 w500 h40 c00D9FF Center, ⚡ COSMIC KEY TIMER ⚡
-Gui, Font, s10 cAAAAFF
-Gui, Add, Text, x20 y60 w500 h20 c00D9FF Center, Управление горячими клавишами в будущем
-Gui, Font, s11 cFFFFFF
+; ---------- GUI ----------
+Gui, Color, 0B1020
+Gui, Font, s12 cFFFFFF, Segoe UI
 
-; Разделитель
-Gui, Add, Text, x20 y90 w500 h2 cFF00FF, 
+; Прозрачные/светящиеся секции
+Gui, Add, Text, x20 y20 w520 h40 +0x200 c00D9FF Center, COSMIC KEY TIMER
+Gui, Font, s9 c55D9FF, Segoe UI
+Gui, Add, Text, x20 y58 w520 h20 +0x200 c55D9FF Center, Hotkey automation control panel
+Gui, Font, s12 cFFFFFF, Segoe UI
 
-; ===== РАЗДЕЛ 1: ОСНОВНЫЕ НАСТРОЙКИ =====
-Gui, Font, s10 c00D9FF Bold
-Gui, Add, Text, x20 y110 w300 h25, ▶ ГОРЯЧАЯ КЛАВИША:
-Gui, Font, s11 cFFFFFF
-Gui, Add, Edit, x20 y140 w300 h35 vHotKeyInput cFFFFFF -Border, q
-Gui, Add, Text, x330 y140 w35 h35 Center c00D9FF, ⬅
+; Основная панель
+Gui, Add, GroupBox, x20 y90 w520 h460 +Theme BackgroundTrans c0A0BFF, CUSTOM COMMAND
 
-; ===== РАЗДЕЛ 2: КЛАВИША ДЛЯ НАЖАТИЯ =====
-Gui, Font, s10 c00D9FF Bold
-Gui, Add, Text, x20 y185 w300 h25, ▶ КЛАВИША ДЛЯ НАЖАТИЯ:
-Gui, Font, s11 cFFFFFF
-Gui, Add, Edit, x20 y215 w300 h35 vActionKeyInput cFFFFFF -Border, q
-Gui, Add, Text, x330 y215 w35 h35 Center c00D9FF, ⬅
+; Горячая клавиша
+Gui, Add, Text, x40 y120 w180 h25 c77D6FF, Trigger hotkey:
+Gui, Add, Edit, x220 y120 w250 h30 vHotKeyInput -Background +Center, q
 
-; ===== РАЗДЕЛ 3: ВРЕМЯ ЗАДЕРЖКИ =====
-Gui, Font, s10 c00D9FF Bold
-Gui, Add, Text, x20 y260 w140 h25, ▶ СЕКУНДЫ:
-Gui, Font, s11 cFFFFFF
-Gui, Add, Edit, x20 y290 w140 h35 vSecondsInput cFFFFFF -Border, 2
+; Клавиша для нажатия
+Gui, Add, Text, x40 y175 w180 h25 c77D6FF, Key to press:
+Gui, Add, Edit, x220 y175 w250 h30 vActionKeyInput -Background +Center, q
 
-Gui, Font, s10 c00D9FF Bold
-Gui, Add, Text, x180 y260 w140 h25, ▶ МИЛЛИСЕКУНДЫ:
-Gui, Font, s11 cFFFFFF
-Gui, Add, Edit, x180 y290 w140 h35 vMillisecondsInput cFFFFFF -Border, 0
+; Секунды
+Gui, Add, Text, x40 y230 w180 h25 c77D6FF, Seconds:
+Gui, Add, Edit, x220 y230 w110 h30 vSecondsInput -Background +Center, 2
 
-; Разделитель
-Gui, Add, Text, x20 y340 w500 h2 cFF00FF, 
+; Миллисекунды
+Gui, Add, Text, x360 y230 w70 h25 c77D6FF, ms:
+Gui, Add, Edit, x430 y230 w110 h30 vMillisecondsInput -Background +Center, 0
 
-; ===== СТАТУС И ИНФОРМАЦИЯ =====
-Gui, Font, s10 c00D9FF Bold
-Gui, Add, Text, x20 y360 w500 h20, ◆ СТАТУС СИСТЕМЫ:
-Gui, Font, s10 c00FF00
-Gui, Add, Text, x20 y385 w500 h50 Border vStatusText c00FF00, ➤ Ожидание активации...
+; Статус
+Gui, Add, Text, x40 y285 w180 h25 c77D6FF, Status:
+Gui, Add, Text, x220 y285 w250 h30 +Border vStatusText c00FF88, Ready to orbit
 
-; ===== КНОПКИ УПРАВЛЕНИЯ =====
-Gui, Font, s10 Bold
-Gui, Add, Button, x20 y450 w150 h45 gSaveHotkey cFFFFFF, ✓ СОХРАНИТЬ
-Gui, Add, Button, x190 y450 w150 h45 gDeleteHotkey cFFFFFF, ✕ УДАЛИТЬ
-Gui, Add, Button, x360 y450 w160 h45 gResetAll cFFFFFF, ⟲ СБРОС
+; Кнопки
+Gui, Font, s10 cFFFFFF Bold, Segoe UI
+Gui, Add, Button, x40 y350 w140 h40 gSaveHotkey, SAVE
+Gui, Add, Button, x210 y350 w140 h40 gDeleteHotkey, DELETE
+Gui, Add, Button, x380 y350 w140 h40 gResetAll, RESET
+Gui, Add, Button, x40 y420 w480 h50 gExitApp, EXIT
 
-; ===== КНОПКА ВЫХОДА =====
-Gui, Add, Button, x20 y510 w500 h40 gExitApp c00FF00, ◄ ЗАВЕРШИТЬ
+; Нижняя строка
+Gui, Font, s9 c77D6FF, Segoe UI
+Gui, Add, Text, x40 y500 w500 h20 c77D6FF, Mode: active | Delay: custom | Version: 1.0 cosmic edition
 
-; Панель информации
-Gui, Font, s9 c0088FF
-Gui, Add, Text, x20 y560 w500 h50, ► Активные комбинации: 1  |  ► Версия: 1.0  |  ► Статус: ОНЛАЙН ✓
-
-Gui, Show, w540 h620, COSMIC KEY TIMER - FUTURISTIC EDITION
-return
-
-; =========================
-; ПЕРЕМЕННЫЕ
-; =========================
-
+; --------- ПЕРЕМЕННЫЕ ---------
 CurrentHotKey := ""
 CurrentActionKey := ""
 CurrentDelay := 0
-PresetCount := 0
 
-; =========================
-; ФУНКЦИИ
-; =========================
+; ---------- ДЕЙСТВИЯ ----------
+Gui, Show, w560 h560, Cosmic Key Timer
+return
 
 SaveHotkey:
 {
@@ -86,33 +71,27 @@ SaveHotkey:
 
     if (HotKey = "" || ActionKey = "")
     {
-        GuiControl,, StatusText, ✗ ОШИБКА: Заполните все поля!
+        GuiControl,, StatusText, Empty fields
         return
     }
 
     if (!IsNumber(Seconds) || !IsNumber(Milliseconds))
     {
-        GuiControl,, StatusText, ✗ ОШИБКА: Используйте только цифры!
+        GuiControl,, StatusText, Only numbers allowed
         return
     }
 
     TotalDelay := (Seconds * 1000) + Milliseconds
 
     if (CurrentHotKey != "")
-    {
         Hotkey, %CurrentHotKey%, Off
-    }
 
     CurrentHotKey := HotKey
     CurrentActionKey := ActionKey
     CurrentDelay := TotalDelay
 
     Hotkey, %HotKey%, PressKey
-
-    Status := "✓ СОХРАНЕНО! [" HotKey "] → [" ActionKey "] (" Seconds "s " Milliseconds "ms)"
-    GuiControl,, StatusText, %Status%
-    
-    PresetCount++
+    GuiControl,, StatusText, Ready: %HotKey% -> %ActionKey% (%Seconds%s %Milliseconds%ms)
 }
 return
 
@@ -122,12 +101,13 @@ DeleteHotkey:
     {
         Hotkey, %CurrentHotKey%, Off
         CurrentHotKey := ""
-        GuiControl,, StatusText, ✕ УДАЛЕНО! Комбинация деактивирована.
-        PresetCount--
+        CurrentActionKey := ""
+        CurrentDelay := 0
+        GuiControl,, StatusText, Removed
     }
     else
     {
-        GuiControl,, StatusText, ⚠ ВНИМАНИЕ: Нечего удалять!
+        GuiControl,, StatusText, Nothing to remove
     }
 }
 return
@@ -135,38 +115,32 @@ return
 ResetAll:
 {
     if (CurrentHotKey != "")
-    {
         Hotkey, %CurrentHotKey%, Off
-    }
-    
+
+    CurrentHotKey := ""
+    CurrentActionKey := ""
+    CurrentDelay := 0
     GuiControl,, HotKeyInput, q
     GuiControl,, ActionKeyInput, q
     GuiControl,, SecondsInput, 2
     GuiControl,, MillisecondsInput, 0
-    GuiControl,, StatusText, ⟲ СИСТЕМА ПЕРЕЗАГРУЖЕНА
-    
-    CurrentHotKey := ""
-    CurrentActionKey := ""
-    CurrentDelay := 0
-    PresetCount := 0
+    GuiControl,, StatusText, System reset
 }
 return
 
 PressKey:
 {
-    GuiControl,, StatusText, ► АКТИВИРОВАНА! Выполнение команды...
     Send, {%CurrentActionKey%}
+    GuiControl,, StatusText, Triggered: %CurrentActionKey% | delay %CurrentDelay% ms
     Sleep, %CurrentDelay%
-    GuiControl,, StatusText, ✓ ГОТОВО! (" CurrentDelay "ms задержка применена)
+    GuiControl,, StatusText, Complete
 }
 return
 
 ExitApp:
 {
     if (CurrentHotKey != "")
-    {
         Hotkey, %CurrentHotKey%, Off
-    }
     ExitApp
 }
 return
@@ -174,9 +148,7 @@ return
 GuiClose:
 {
     if (CurrentHotKey != "")
-    {
         Hotkey, %CurrentHotKey%, Off
-    }
     ExitApp
 }
 return
